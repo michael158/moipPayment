@@ -14,24 +14,32 @@
 <body>
 <div class="container">
     <div class="text-center">
-        <h1>Sistema de Pagamento MoIp</h1>
+        <h1>Sistema de Pagamento MoIp - Michael Douglas </h1>
 
-        <div class="row">
+        <img src="https://moip.com.br/wp-content/uploads/2015/07/logo-moip1.png" alt>
+    </div>
+
+    <h3>Produtos</h3>
+    <div class="row text-center" style="margin-top: 30px">
         <?php foreach (Product::instance()->getProducts() as $product): ?>
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail">
-                    <img src="http://placehold.it/350x350" alt="...">
+                    <img src="<?php echo $product['image'] ?>" alt="<?php echo $product['description'] ?>">
                     <div class="caption">
                         <h3><?php echo $product['name'] ?></h3>
                         <p><?php echo $product['description'] ?></p>
-                        <p>Valor: R$ <?php echo $product['value'] ?></p>
-                        <p class="container-payment"><a class="btn btn-primary btn-payment" data-href="app/controller/PaymentController.php?id=<?php echo $product['id'] ?>">Pagar</a></p>
+                        <p style="color: green">Valor: R$ <?php echo $product['value'] ?></p>
+                        <p class="container-payment"><a class="btn btn-primary"
+                                                        href="app/controller/PaymentController.php?id=<?php echo $product['id'] ?>">Comprar</a>
+                        </p>
                     </div>
                 </div>
             </div>
         <?php endforeach ?>
-        </div>
+    </div>
 
+    <div class="row text-center">
+        <p> Copyright &copy; <a href="http://michaeldeveloper.com.br/">Michael Douglas.</a> Todos os Direitos Reservados - <?php echo date('Y') ?></p>
     </div>
 </div>
 

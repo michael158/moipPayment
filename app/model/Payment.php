@@ -30,7 +30,7 @@ class Payment
 
         $moip->send();
 
-        echo json_encode($moip->getAnswer()->payment_url);
+        header('Location: ' . $moip->getAnswer()->payment_url);
     }
 
     protected function getProduct($id)
