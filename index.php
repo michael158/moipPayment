@@ -16,7 +16,6 @@
     <div class="text-center">
         <h1>Sistema de Pagamento MoIp</h1>
 
-
         <div class="row">
         <?php foreach (Product::instance()->getProducts() as $product): ?>
             <div class="col-sm-6 col-md-4">

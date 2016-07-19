@@ -18,9 +18,8 @@ $(document).ready(function(){
                 alert("Error:" + response);
             },
             complete: function (response) {
-                container.html(btn.html('Pagar'))
-                container.append('<a href="' + response.responseJSON + '" target="_blank" class="payment-link">finalizar pagamento</a>');
-                $('.payment-link' , container).click();
+                btn.remove();
+                container.append('<a href="' + response.responseJSON + '" target="_blank" class="btn btn-success">Finalizar Pagamento</a>');
             }
         });
 

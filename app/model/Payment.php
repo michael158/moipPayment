@@ -6,20 +6,15 @@ include_once '../autoload.inc.php';
 class Payment
 {
 
-    // Parametros Básicos //--------------------------------------------------------------------------------------------
-    //
-    //  token
-    //  key:
-    //
-    // -----------------------------------------------------------------------------------------------------------------
-
     private $token = 'YPXRVPMO9LTFJNC03TTGEGR82GKWT4ZK';
     private $key = 'VPOV5UK5H3KIJQDLGTBLHQT6V4PSDVNXTM2OTO5E';
 
     public function makePayment($productId)
     {
-        $product = Product::instance()->getProduct($productId);
+        // Recupera os dados do produto
+        $product = $this->getProduct($productId);
 
+        // Instancia MoIp
         $moip = new Moip();
         $moip->setEnvironment('test');
         $moip->setCredential(array(
@@ -36,6 +31,11 @@ class Payment
         $moip->send();
 
         echo json_encode($moip->getAnswer()->payment_url);
+    }
+
+    protected function getProduct($id)
+    {
+        return Product::instance()->getProduct($id);
     }
 
     
