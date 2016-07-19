@@ -1,44 +1,41 @@
 <?php
 
 require_once 'Product.php';
+include_once '../autoload.inc.php';
 
 class Payment
 {
 
-    // Fazer um post para a url https://desenvolvedor.moip.com.br/sandbox/PagamentoMoIP.do
-
     // Parametros Básicos //--------------------------------------------------------------------------------------------
     //
-    //  id_carteira:	fulano@loja.com.br  (o id da carteira que vai receber o pagamento)
-    //  valor:      	4100	            (O valor a ser pago)
-    //  nome	        Razão do pagamento  (O nome do pagamento)
+    //  token
+    //  key:
     //
     // -----------------------------------------------------------------------------------------------------------------
 
-    private $id = 'michael.dsa41@gmail.com';
-    private $url = 'https://desenvolvedor.moip.com.br/sandbox/PagamentoMoIP.do';
-
+    private $token = 'YPXRVPMO9LTFJNC03TTGEGR82GKWT4ZK';
+    private $key = 'VPOV5UK5H3KIJQDLGTBLHQT6V4PSDVNXTM2OTO5E';
 
     public function makePayment($productId)
     {
         $product = Product::instance()->getProduct($productId);
 
-        $sendProduct = [
-            'id_carteira' => $this->id,
-            'valor' => $product['value'],
-            'nome' => $product['name']
-        ];
+        $moip = new Moip();
+        $moip->setEnvironment('test');
+        $moip->setCredential(array(
+            'key' =>  $this->key,
+            'token' => $this->token
+        ));
 
-        $ch = curl_init( $this->url );
-        curl_setopt( $ch, CURLOPT_POST, 1);
-        curl_setopt( $ch, CURLOPT_POSTFIELDS, $sendProduct);
-        curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt( $ch, CURLOPT_HEADER, 0);
-        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
+        $moip->setUniqueID(false);
+        $moip->setValue($product['value']);
+        $moip->setReason($product['name']);
 
-        $response = curl_exec( $ch );
+        $moip->validate('Basic');
 
-        echo $response;
+        $moip->send();
+
+        echo json_encode($moip->getAnswer()->payment_url);
     }
 
     

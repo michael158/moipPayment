@@ -21,12 +21,12 @@
         <?php foreach (Product::instance()->getProducts() as $product): ?>
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail">
-                    <img src="..." alt="...">
+                    <img src="http://placehold.it/350x350" alt="...">
                     <div class="caption">
                         <h3><?php echo $product['name'] ?></h3>
                         <p><?php echo $product['description'] ?></p>
                         <p>Valor: R$ <?php echo $product['value'] ?></p>
-                        <p><a class="btn btn-primary" href="app/controller/PaymentController.php?id=<?php echo $product['id'] ?>">Pagar</a></p>
+                        <p class="container-payment"><a class="btn btn-primary btn-payment" data-href="app/controller/PaymentController.php?id=<?php echo $product['id'] ?>">Pagar</a></p>
                     </div>
                 </div>
             </div>
